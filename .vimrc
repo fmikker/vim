@@ -1,58 +1,107 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Ripped off chatarsis
+set ruler
+set number
+set incsearch
 
+set tabstop=4
+set shiftwidth=4
+set shiftround
+
+set ignorecase
+set smartcase
+
+set smarttab
+set hlsearch
+set textwidth=0
+set backspace=indent,eol,start
+
+set history=1000
+set undolevels=1000
+set title
+
+set nobackup
+set noswapfile
+set noerrorbells
+set novisualbell
+set formatoptions+=j " Delete comment character when joining lines
+
+set foldmethod=indent
+
+syntax on
+filetype plugin indent on
+"set autochdir
+set autoindent
+set smartcase
+
+set guioptions=agitc
+set guifont=Monospace\ 10
+set t_Co=256
+
+" use system clipboard
+set clipboard=unnamed
+if has('gui_running')
+	" colorscheme solarized
+	colorscheme jellybeans
+else
+	colorscheme delek
+endif
+
+set nocompatible              " be iMproved, required
+"filetype off                  " required
 
 " Disable swap files
 set noswapfile
 
 "set tabs 4 spaces wide
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
-" set the runtime path to include Vundle and initialize
-set rtp+=/home/bol/.vim/bundle/Vundle.vim/
-call vundle#begin()
-" " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
-"
-" " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-"
-" " The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin		/end.
-" " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Install L9 and avoid a Naming conflict if you've already installed a
-" " different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
 
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+" Automatic installation of the pluginmanager "Plug" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
+" Enable pluginmanager "Plug"
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
+" Install vim-markdown 
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+" Install NERDTree
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Enable NERDTree
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+
+" Install vim-yaml
+"Plug 'stephpy/vim-yaml'
+" Install the plugin "ansible-vim
+Plug 'pearofducks/ansible-vim'
+
+
+call plug#end()
+
+" Ansible: Unintendend after newline on or off
+let g:ansible_unindent_after_newline = 0 
+
+" Load all syntaxes for Jinja2 templates
+let g:ansible_extra_syntaxes = "sh.vim ruby.vim"
+
+" Hilight key=value in hosts files
+let g:ansible_attribute_highlight = "ob"
 
 " Disable folding for vim-markdown
 let g:vim_markdown_folding_disabled = 1
 
-" " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" " To ignore plugin indent changes, instead use:
-" "filetype plugin on
-" "
-" " Brief help
-" " :PluginList       - lists configured plugins
-" " :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" " :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-" "
-" " see :h vundle for more details or wiki for FAQ
-" " Put your non-Plugin stuff after this line
+" Highlight of the "name:"-key in ansible playbooks
+let g:ansible_name_highlight = 'd'
+
+" Hilight additional keywords in playbooks, such as "register" "always_run"
+" "become" and "become_user" and so on.
+let g:ansible_extra_keywords_highlight = 1
