@@ -82,13 +82,12 @@ autocmd VimEnter * wincmd p
 " Install vim-yaml
 "Plug 'stephpy/vim-yaml'
 " Install the plugin "ansible-vim
-Plug 'pearofducks/ansible-vim'
-
+Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; ./generate.py' }
 
 call plug#end()
 
 " Ansible: Unintendend after newline on or off
-let g:ansible_unindent_after_newline = 0 
+let g:ansible_unindent_after_newline = 1 
 
 " Load all syntaxes for Jinja2 templates
 let g:ansible_extra_syntaxes = "sh.vim ruby.vim"
