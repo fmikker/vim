@@ -27,6 +27,8 @@ set formatoptions+=j " Delete comment character when joining lines
 
 set foldmethod=indent
 
+set nofoldenable    " disable folding
+
 syntax on
 filetype plugin indent on
 "set autochdir
