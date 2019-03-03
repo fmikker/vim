@@ -75,9 +75,10 @@ Plug 'plasticboy/vim-markdown'
 " Install NERDTree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-" Enable NERDTree
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+" Enable NERDTree with CTRL-N
+"autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p
+map <C-n> :NERDTreeToggle<CR>
 
 " Install vim-yaml
 "Plug 'stephpy/vim-yaml'
